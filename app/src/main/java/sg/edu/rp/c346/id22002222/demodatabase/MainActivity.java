@@ -20,7 +20,10 @@ public class MainActivity extends AppCompatActivity {
     EditText etTask, etDate;
     ListView lv;
 
+    ArrayAdapter<String> aa;
     ArrayList<Task> al;
+
+    boolean asc = true;
 
 
 
@@ -64,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
                 // Insert a task
                 ArrayList<String> data = db.getTaskContent();
 
-                ArrayList<Task> al = db.getTasks();
+//                ArrayList<Task> al = db.getTasks();
 
                 db.close();
 
@@ -75,10 +78,15 @@ public class MainActivity extends AppCompatActivity {
                 }
                 tvResults.setText(txt);
 
+//              DBHelper db2 = new DBHelper(MainActivity.this);
+                al = db.getTasks(asc);
+//              db2.close();
+                asc = !asc;
+                aa = new ArrayAdapter(MainActivity.this, android.R.layout.simple_list_item_1, al);
+                lv.setAdapter(aa);
 
-
-                ArrayAdapter adapter2 = new ArrayAdapter<>(MainActivity.this, android.R.layout.simple_list_item_1,al);
-                lv.setAdapter(adapter2);
+//                ArrayAdapter adapter2 = new ArrayAdapter<>(MainActivity.this, android.R.layout.simple_list_item_1,al);
+//                lv.setAdapter(adapter2);
             }
         });
 
